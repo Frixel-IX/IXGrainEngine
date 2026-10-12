@@ -60,11 +60,11 @@ public:
 
 
 
-class SimpleEQAudioProcessorEditor  : public juce::AudioProcessorEditor
+class IXGrainEngineAudioProcessorEditor  : public juce::AudioProcessorEditor
 {
 public:
-    SimpleEQAudioProcessorEditor(SimpleEQAudioProcessor&);
-        ~SimpleEQAudioProcessorEditor() override;
+    IXGrainEngineAudioProcessorEditor(IXGrainEngineAudioProcessor&);
+        ~IXGrainEngineAudioProcessorEditor() override;
     
 
     //==============================================================================
@@ -75,7 +75,7 @@ public:
 private:
     // This reference is provided as a quick way for your editor to
     // access the processor object that created it.
-    SimpleEQAudioProcessor& audioProcessor;
+    IXGrainEngineAudioProcessor& audioProcessor;
     //pitch Buttons
     pitchButton minor2 = pitchButton("Minor 2nd", 1.05946);
     pitchButton major2 = pitchButton("Major 2nd", 1.12246);
@@ -117,5 +117,5 @@ private:
     juce::Label titleLabel;
     juce::Label intervalsLabel;
     juce::Label  segmentLabel;
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimpleEQAudioProcessorEditor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (IXGrainEngineAudioProcessorEditor)
 };

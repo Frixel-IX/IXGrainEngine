@@ -18,7 +18,7 @@
 #include "PluginEditor.h"
 #include "random"
 //==============================================================================
-SimpleEQAudioProcessor::SimpleEQAudioProcessor()
+IXGrainEngineAudioProcessor::IXGrainEngineAudioProcessor()
 #ifndef JucePlugin_PreferredChannelConfigurations
      : AudioProcessor (BusesProperties()
                      #if ! JucePlugin_IsMidiEffect
@@ -33,17 +33,17 @@ SimpleEQAudioProcessor::SimpleEQAudioProcessor()
 {
 }
 
-SimpleEQAudioProcessor::~SimpleEQAudioProcessor()
+IXGrainEngineAudioProcessor::~IXGrainEngineAudioProcessor()
 {
 }
 
 //==============================================================================
-const juce::String SimpleEQAudioProcessor::getName() const
+const juce::String IXGrainEngineAudioProcessor::getName() const
 {
     return JucePlugin_Name;
 }
 
-bool SimpleEQAudioProcessor::acceptsMidi() const
+bool IXGrainEngineAudioProcessor::acceptsMidi() const
 {
    #if JucePlugin_WantsMidiInput
     return true;
@@ -52,7 +52,7 @@ bool SimpleEQAudioProcessor::acceptsMidi() const
    #endif
 }
 
-bool SimpleEQAudioProcessor::producesMidi() const
+bool IXGrainEngineAudioProcessor::producesMidi() const
 {
    #if JucePlugin_ProducesMidiOutput
     return true;
@@ -61,7 +61,7 @@ bool SimpleEQAudioProcessor::producesMidi() const
    #endif
 }
 
-bool SimpleEQAudioProcessor::isMidiEffect() const
+bool IXGrainEngineAudioProcessor::isMidiEffect() const
 {
    #if JucePlugin_IsMidiEffect
     return true;
@@ -70,37 +70,37 @@ bool SimpleEQAudioProcessor::isMidiEffect() const
    #endif
 }
 
-double SimpleEQAudioProcessor::getTailLengthSeconds() const
+double IXGrainEngineAudioProcessor::getTailLengthSeconds() const
 {
     return 0.0;
 }
 
-int SimpleEQAudioProcessor::getNumPrograms()
+int IXGrainEngineAudioProcessor::getNumPrograms()
 {
     return 1;   // NB: some hosts don't cope very well if you tell them there are 0 programs,
                 // so this should be at least 1, even if you're not really implementing programs.
 }
 
-int SimpleEQAudioProcessor::getCurrentProgram()
+int IXGrainEngineAudioProcessor::getCurrentProgram()
 {
     return 0;
 }
 
-void SimpleEQAudioProcessor::setCurrentProgram (int index)
+void IXGrainEngineAudioProcessor::setCurrentProgram (int index)
 {
 }
 
-const juce::String SimpleEQAudioProcessor::getProgramName (int index)
+const juce::String IXGrainEngineAudioProcessor::getProgramName (int index)
 {
     return {};
 }
 
-void SimpleEQAudioProcessor::changeProgramName (int index, const juce::String& newName)
+void IXGrainEngineAudioProcessor::changeProgramName (int index, const juce::String& newName)
 {
 }
 
 //==============================================================================
-void SimpleEQAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
+void IXGrainEngineAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlock)
 {
     
     juce::ignoreUnused(sampleRate, samplesPerBlock);
@@ -135,14 +135,14 @@ void SimpleEQAudioProcessor::prepareToPlay (double sampleRate, int samplesPerBlo
 //    osc.setFrequency(440);
 }
 
-void SimpleEQAudioProcessor::releaseResources()
+void IXGrainEngineAudioProcessor::releaseResources()
 {
     // When playback stops, you can use this as an opportunity to free up any
     // spare memory, etc.
 }
 
 #ifndef JucePlugin_PreferredChannelConfigurations
-bool SimpleEQAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
+bool IXGrainEngineAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts) const
 {
   #if JucePlugin_IsMidiEffect
     juce::ignoreUnused (layouts);
@@ -167,7 +167,7 @@ bool SimpleEQAudioProcessor::isBusesLayoutSupported (const BusesLayout& layouts)
 }
 #endif
 
-void SimpleEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
+void IXGrainEngineAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juce::MidiBuffer& midiMessages)
 {
     juce::ScopedNoDenormals noDenormals;
     auto totalNumInputChannels  = getTotalNumInputChannels();
@@ -202,7 +202,7 @@ void SimpleEQAudioProcessor::processBlock (juce::AudioBuffer<float>& buffer, juc
  
 }
 
-void SimpleEQAudioProcessor::updatePitchList()
+void IXGrainEngineAudioProcessor::updatePitchList()
 {
     pitchList.clear();
     
@@ -230,7 +230,7 @@ void SimpleEQAudioProcessor::updatePitchList()
         pitchList.push_back(std::pow(2.0f, 11.0f/12.0f));
 }
 
-void SimpleEQAudioProcessor::prepareSegments()
+void IXGrainEngineAudioProcessor::prepareSegments()
 {
     updatePitchList();
     
@@ -265,7 +265,7 @@ void SimpleEQAudioProcessor::prepareSegments()
     readSampleOffsetFloat = 0.0f; // We'll store offset as float now
 }
 
-void SimpleEQAudioProcessor::recordIncomingAduio (juce::AudioBuffer<float>& buffer)
+void IXGrainEngineAudioProcessor::recordIncomingAduio (juce::AudioBuffer<float>& buffer)
 {
     const int numSamples = buffer.getNumSamples();
     const int numChannels = juce::jmin(buffer.getNumChannels(), internalBuffer.getNumChannels());
@@ -286,7 +286,7 @@ void SimpleEQAudioProcessor::recordIncomingAduio (juce::AudioBuffer<float>& buff
 }
 
 
-void SimpleEQAudioProcessor::playRearrangedAudio(juce::AudioBuffer<float>& buffer)
+void IXGrainEngineAudioProcessor::playRearrangedAudio(juce::AudioBuffer<float>& buffer)
 {
     const int numSamples = buffer.getNumSamples();
     const int numChannels = juce::jmin(buffer.getNumChannels(), internalBuffer.getNumChannels());
@@ -357,20 +357,20 @@ void SimpleEQAudioProcessor::playRearrangedAudio(juce::AudioBuffer<float>& buffe
 
 
 //==============================================================================
-bool SimpleEQAudioProcessor::hasEditor() const
+bool IXGrainEngineAudioProcessor::hasEditor() const
 {
     return true; // (change this to false if you choose to not supply an editor)
 }
 
-juce::AudioProcessorEditor* SimpleEQAudioProcessor::createEditor()
+juce::AudioProcessorEditor* IXGrainEngineAudioProcessor::createEditor()
 {
-    auto* editor = new SimpleEQAudioProcessorEditor(*this);
+    auto* editor = new IXGrainEngineAudioProcessorEditor(*this);
         editor->setSize(getEditorWidth(), getEditorHeight());
         return editor;
 }
 
 //==============================================================================
-void SimpleEQAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
+void IXGrainEngineAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
 {
     // You should use this method to store your parameters in the memory block.
     // You could do that either as raw data, or use the XML or ValueTree classes
@@ -380,7 +380,7 @@ void SimpleEQAudioProcessor::getStateInformation (juce::MemoryBlock& destData)
     treeState.state.writeToStream(mos);
 }
 
-void SimpleEQAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
+void IXGrainEngineAudioProcessor::setStateInformation (const void* data, int sizeInBytes)
 {
     auto tree = juce::ValueTree::readFromData(data, sizeInBytes);
     if (tree.isValid())
@@ -393,10 +393,10 @@ void SimpleEQAudioProcessor::setStateInformation (const void* data, int sizeInBy
 
 juce::AudioProcessor* JUCE_CALLTYPE createPluginFilter()
 {
-    return new SimpleEQAudioProcessor();
+    return new IXGrainEngineAudioProcessor();
 }
 
-juce::AudioProcessorValueTreeState::ParameterLayout SimpleEQAudioProcessor::createParameterLayout()
+juce::AudioProcessorValueTreeState::ParameterLayout IXGrainEngineAudioProcessor::createParameterLayout()
 {
     std::vector<std::unique_ptr<juce::RangedAudioParameter>> params;
 

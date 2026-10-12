@@ -10,11 +10,11 @@
 #include "PluginEditor.h"
 #include <algorithm>
 
-SimpleEQAudioProcessorEditor::~SimpleEQAudioProcessorEditor()
+IXGrainEngineAudioProcessorEditor::~IXGrainEngineAudioProcessorEditor()
 {
     setLookAndFeel(nullptr);
 }
-void SimpleEQAudioProcessorEditor::pitchToggle(juce::ToggleButton& button, float coefficient)
+void IXGrainEngineAudioProcessorEditor::pitchToggle(juce::ToggleButton& button, float coefficient)
 {
     if(button.getToggleState())
     {
@@ -28,7 +28,7 @@ void SimpleEQAudioProcessorEditor::pitchToggle(juce::ToggleButton& button, float
     audioProcessor.prepareSegments();
 }
 
-SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcessor& p)
+IXGrainEngineAudioProcessorEditor::IXGrainEngineAudioProcessorEditor (IXGrainEngineAudioProcessor& p)
     : AudioProcessorEditor (&p), audioProcessor (p)
 {
     // Enhanced Look and Feel with modern dark theme
@@ -189,7 +189,7 @@ SimpleEQAudioProcessorEditor::SimpleEQAudioProcessorEditor (SimpleEQAudioProcess
 // Remove the generic helper function since each button needs individual setup
 // Instead, we'll set up each button individually in the constructor
 
-void SimpleEQAudioProcessorEditor::paint(juce::Graphics& g)
+void IXGrainEngineAudioProcessorEditor::paint(juce::Graphics& g)
 {
     // Gradient background
     juce::ColourGradient gradient(juce::Colour(0xff1a1a1a), 0, 0,
@@ -209,7 +209,7 @@ void SimpleEQAudioProcessorEditor::paint(juce::Graphics& g)
     g.fillRect(22, 302, getWidth() - 44, 146);    // Processing section background
 }
 
-void SimpleEQAudioProcessorEditor::resized()
+void IXGrainEngineAudioProcessorEditor::resized()
 {
     auto area = getLocalBounds();
     

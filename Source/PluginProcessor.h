@@ -40,12 +40,12 @@
 #include <iostream>
 /**
 */
-class SimpleEQAudioProcessor  : public juce::AudioProcessor
+class IXGrainEngineAudioProcessor  : public juce::AudioProcessor
 {
 public:
     //==============================================================================
-    SimpleEQAudioProcessor();
-    ~SimpleEQAudioProcessor() override;
+    IXGrainEngineAudioProcessor();
+    ~IXGrainEngineAudioProcessor() override;
 
     //==============================================================================
     void prepareToPlay (double sampleRate, int samplesPerBlock) override;
@@ -116,5 +116,5 @@ private:
     
     
     //==============================================================================
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (SimpleEQAudioProcessor)
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR (IXGrainEngineAudioProcessor)
 };
