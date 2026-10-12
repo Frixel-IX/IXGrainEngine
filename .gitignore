@@ -1,0 +1,16 @@
+# macOS metadata
+.DS_Store
+
+# Projucer-generated projects and JUCE wrappers
+/Builds/
+/JuceLibraryCode/
+
+# Local build output
+/build/
+/build-*/
+/cmake-build-*/
+
+# IDE user settings
+xcuserdata/
+*.xcuserstate
+.vs/
